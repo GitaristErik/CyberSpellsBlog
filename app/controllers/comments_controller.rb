@@ -5,6 +5,7 @@ class CommentsController < ApplicationController
     @comment.username = current_user.email
     if(@comment.save)
       redirect_to post_path(post_find)
+    end
   end
 
   private
