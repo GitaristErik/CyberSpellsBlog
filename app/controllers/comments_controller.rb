@@ -2,7 +2,9 @@ class CommentsController < ApplicationController
 
   def create
     @comment = post_find.comments.create(comment_params)
-    redirect_to post_path(post_find)
+    @comment.username = current_user.email
+    if(@comment.save)
+      redirect_to post_path(post_find)
   end
 
   private

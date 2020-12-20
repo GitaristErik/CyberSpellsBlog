@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
-#  http_basic_authenticate_with name: "admin", password: "admin", except: [:index, :show]
   before_action :authenticate_user!, except: [:show, :index]
+
   def index
     @post = Post.all
   end
@@ -19,6 +19,7 @@ class PostsController < ApplicationController
 
  def create
    @post = Post.create(post_params)
+   @post.username = current_user.email
    if(@post.save)
      redirect_to @post
    else render 'new'
@@ -44,6 +45,6 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:title, :body, images: [])
+    params.require(:post).permit(:title, :body, :username, images: [])
   end
 end

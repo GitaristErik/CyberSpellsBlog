@@ -15,16 +15,24 @@
       <header class="blog-header py-3">
         <div class="row flex-nowrap justify-content-between align-items-center">
           <div class="col-4 pt-1">
+            <% if user_signed_in? %>
             <span class="btn btn-outline-primary"><%= link_to "Добавлення сторінки",
               new_post_path %>
             </span>
+            <% end %>
           </div>
           <div class="col-4 text-center">
             <span class="blog-header-logo text-dark"><%= link_to "Головна сторінка", home_path %></span>
           </div>
           <div class="col-4 d-flex justify-content-end align-items-center">
-            <a class="btn btn-sm btn-outline-secondary" href="#">Sign up</a>
-          </div>
+          <% if user_signed_in? %>
+              <%= link_to 'Профіль', user_session_path, :class => 'btn btn-outline-secondary' %>
+              <%= link_to 'Вийти', destroy_user_session_path, :class => 'btn-sm btn-outline-danger', :method => :delete %>
+          <% else %>
+            <%= link_to "Реєстрація", new_user_registration_path, :class => 'btn btn-outline-secondary' %>
+            <%= link_to "Ввійти", new_user_session_path, :class => 'btn btn-success' %>
+          <% end %>
+        </div>
         </div>
       </header>
       <%= yield %>
