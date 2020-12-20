@@ -18,7 +18,11 @@
 <h2>Всі коментарі</h2>
 <% @post.comments.each do |c| %>
   <div class="alert alert-light">
-    <p> <strong> <%= c.username %></strong> <%= c.body %> </p>
+    <span> <strong> <%= c.username %></strong> <%= c.body %> </span>
+    <% if c.username == current_user.email %>
+      <%= link_to "Видалити", [@post, c], method: :delete,
+        data: {confirm: "Ви дійсно хочете видалити цей коментар?"}, :class => 'btn btn-danger'%>
+    <%end%>
   </div>
 <% end %>
 <% if user_signed_in? %>

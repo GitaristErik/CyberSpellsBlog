@@ -8,10 +8,20 @@ class CommentsController < ApplicationController
     end
   end
 
+  def destroy
+    if(comment_find.destroy)
+      redirect_to post_path(post_find)
+    end
+  end
+
   private
 
   def post_find
     @post = Post.find(params[:post_id])
+  end
+
+  def comment_find
+    @comment = Comment.find(params[:id])
   end
 
   def comment_params
