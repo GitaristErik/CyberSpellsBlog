@@ -1,0 +1,40 @@
+<h1><%= @post.title %></h1>
+<p>
+  <div id = "images">
+    <% @post.images.each do |i|%>
+      <%= image_tag i, width:1000, height:500%>
+    <%end%>
+  </div>
+  <%= @post.body %>
+</p>
+<hr>
+<%= link_to "Редагувати", edit_post_path(@post), :class => 'btn btn-warning' %>
+<%= link_to "Видалити", post_path(@post), method: :delete,
+  data: {confirm: "Ви дійсно хочете видалити статтю?"}, :class => 'btn btn-danger'%>
+<hr>
+<h2>Всі коментарі</h2>
+<% @post.comments.each do |c| %>
+  <div class="alert alert-light">
+    <p> <strong> <%= c.username %></strong> <%= c.body %> </p>
+  </div>
+<% end %>
+<hr>
+<h2>Залишити коментар</h2>
+<%= form_for([@post, @post.comments.build]) do |f| %>
+  <% if @post.errors.any? %>
+    <% @post.errors.full_messages.each do |m| %>
+      <div class="alert alert-danger"> <%= m %> </div>
+      <%end%>
+    <%end%>
+  <p>
+    Користувач<br>
+    <%= f.text_field(:username, {:class => 'form-control'})%>
+  </p>
+  <p>
+    Текст коментаря<br>
+    <%= f.text_area(:body, {:class => 'form-control'}) %>
+  </p>
+  <p>
+    <%= f.submit("Добавити коментар", {:class => 'btn btn-success'})%>
+  </p>
+<% end %>

@@ -1,0 +1,18 @@
+<h1>Усі наші пости</h1>
+<% @post.each do |post| %>
+  <div class = "row">
+    <div class="col">
+      <div class="card box-shadow">
+        <% if post.images.count > 0 %>
+          <%= image_tag post.images[0]%>
+        <% end %>
+        <div class="card-body">
+          <p class="card-text"><%= post.title %></p>
+          <div class="d-flex justify-content-end align-items-center">
+              <%= link_to "Читати далі", post_path(post), :class => 'btn btn-outline-primary' %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
