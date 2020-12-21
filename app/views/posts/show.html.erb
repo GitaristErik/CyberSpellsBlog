@@ -8,7 +8,7 @@
   </div>
   <%= @post.body %>
 </p>
-<% if @post.username == current_user.email %>
+<% if user_signed_in? && @post.username == current_user.email %>
   <hr>
   <%= link_to "Редагувати", edit_post_path(@post), :class => 'btn btn-warning' %>
   <%= link_to "Видалити", post_path(@post), method: :delete,
@@ -19,7 +19,7 @@
 <% @post.comments.each do |c| %>
   <div class="alert alert-light">
     <span> <strong> <%= c.username %></strong> <%= c.body %> </span>
-    <% if c.username == current_user.email %>
+    <% if user_signed_in? && c.username == current_user.email %>
       <%= link_to "Видалити", post_comment_path(@post, c), method: :delete,
         data: {confirm: "Ви дійсно хочете видалити цей коментар?"}, :class => 'btn btn-danger'%>
     <%end%>
